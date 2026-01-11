@@ -1,26 +1,148 @@
 @import "tailwindcss";
 
+/* =========================
+   DESIGN TOKENS (ERP Kanban)
+   ========================= */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* App background (mint) */
+  --app-bg: #dcedea;
+
+  /* Surfaces */
+  --surface: #ffffff; /* cards, panels */
+  --surface-2: #f5f7f9; /* column background */
+  --surface-3: #eef2f4; /* subtle hover/alt surface */
+
+  /* Brand / accents */
+  --primary: #0e8f7b; /* sidebar / primary actions */
+  --primary-hover: #0b7a69;
+  --secondary: #6c5dd3; /* violet accent */
+  --secondary-hover: #5b4fc2;
+
+  /* Text */
+  --text: #1f2937; /* primary text */
+  --text-secondary: #6b7280; /* secondary text */
+  --text-muted: #9ca3af; /* muted text */
+
+  /* Borders / dividers */
+  --border: #e5e7eb;
+  --border-strong: #cbd5e1;
+
+  /* Status / badges */
+  --success-bg: #dcfce7;
+  --success-text: #166534;
+
+  --warning-bg: #fef3c7;
+  --warning-text: #92400e;
+
+  --danger-bg: #fee2e2;
+  --danger-text: #991b1b;
+
+  /* High value indicator (> 50K) */
+  --high-bg: #fff7ed;
+  --high-text: #9a3412;
+  --high-border: #fb923c;
+
+  /* Shadows (soft ERP style) */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 8px 20px rgba(15, 23, 42, 0.12);
+
+  /* Optional: Keep your base tokens */
+  --background: var(--surface);
+  --foreground: var(--text);
 }
 
+/* Tailwind v4 theme mapping:
+   Makes classes like bg-app-bg, text-primary, border-border work. */
 @theme inline {
+  /* Base */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  /* App + surfaces */
+  --color-app-bg: var(--app-bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+
+  /* Brand */
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
+
+  /* Text */
+  --color-text: var(--text);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+
+  /* Borders */
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  /* Status */
+  --color-success-bg: var(--success-bg);
+  --color-success-text: var(--success-text);
+  --color-warning-bg: var(--warning-bg);
+  --color-warning-text: var(--warning-text);
+  --color-danger-bg: var(--danger-bg);
+  --color-danger-text: var(--danger-text);
+
+  /* High value */
+  --color-high-bg: var(--high-bg);
+  --color-high-text: var(--high-text);
+  --color-high-border: var(--high-border);
+
+  /* Fonts (keep if you use Geist) */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
+/* Optional: dark mode tuning (simple ERP-friendly dark) */
+@media (prefers-color-scheme: light) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --app-bg: #0b1220;
+    --surface: #0f172a;
+    --surface-2: #111c33;
+    --surface-3: #162341;
+
+    --text: #e5e7eb;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+
+    --border: #23314f;
+    --border-strong: #334a73;
   }
 }
 
+/* Base body styling */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--app-bg);
+  color: var(--text);
+  font-family: var(--font-sans, Arial, Helvetica, sans-serif);
+}
+
+.kanban-scrollbar {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+.kanban-scrollbar::-webkit-scrollbar {
+  height: 10px;
+}
+
+.kanban-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.kanban-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--border-strong);
+  border-radius: 9999px;
+
+  /* gives "thin thumb" look in Safari */
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+.kanban-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text-muted);
 }
